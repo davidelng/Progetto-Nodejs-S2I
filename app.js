@@ -1,17 +1,41 @@
-const express = require("express");
+/**
+ * Imports
+ */
 require("dotenv").config();
+const express = require("express");
+const userController = require("./controllers/userController");
+const postController = require("./controllers/postController");
+
+/**
+ * Express config
+ */
 const PORT = process.env.PORT || 3000;
-
 const app = express();
-
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.status(200).send({ message: "L'app funziona correttamente" });
+  res
+    .status(200)
+    .json({
+      message:
+        "L'app funziona correttamente, consulta il README per sapere come utilizzarla",
+    });
 });
 
+/**
+ * Inizializzazione controller CRUD
+ */
+userController(app);
+postController(app);
+
+/**
+ * Fallback per route inesistenti
+ */
 app.use((req, res, next) => {
-  res.status(404).send({ message: "La pagina è inesistente" });
+  res.status(404).json({ message: "La pagina è inesistente" });
 });
 
-app.listen(PORT, () => console.log(`Now listening on port ${PORT}`));
+/**
+ * Server
+ */
+app.listen(PORT, () => console.log(`🚀 Server lanciato sulla porta ${PORT}!`));
