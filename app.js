@@ -14,12 +14,10 @@ const app = express();
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res
-    .status(200)
-    .json({
-      message:
-        "L'app funziona correttamente, consulta il README per sapere come utilizzarla",
-    });
+  res.status(200).json({
+    message:
+      "L'app funziona correttamente, consulta il README per sapere come utilizzarla",
+  });
 });
 
 /**
