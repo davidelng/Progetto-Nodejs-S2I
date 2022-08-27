@@ -5,6 +5,7 @@ require("dotenv").config();
 const express = require("express");
 const userController = require("./controllers/userController");
 const postController = require("./controllers/postController");
+const interactionController = require("./controllers/interactionsController");
 
 /**
  * Express config
@@ -25,6 +26,7 @@ app.get("/", (req, res) => {
  */
 userController(app);
 postController(app);
+interactionController(app);
 
 /**
  * Fallback per route inesistenti
