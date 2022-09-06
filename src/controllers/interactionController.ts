@@ -1,9 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 import { requireJsonContent } from "./middlewares";
+import type { Express } from "express";
 
 const prisma = new PrismaClient();
 
-export const interactionController = (app) => {
+export const interactionController = (app: Express) => {
   /**
    * READ
    */

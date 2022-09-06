@@ -1,9 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 import { requireJsonContent, isTitleCorrect } from "./middlewares";
+import type { Express } from "express";
 
 const prisma = new PrismaClient();
 
-export const postController = (app) => {
+export const postController = (app: Express) => {
   /**
    * READ
    */

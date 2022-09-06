@@ -1,7 +1,9 @@
+import type { Request, Response, NextFunction } from "express";
+
 /**
  * Controlla che il body non sia vuoto e che i dati inviati siano in formato json
  */
-export const requireJsonContent = (req, res, next) => {
+const requireJsonContent = (req: Request, res: Response, next: NextFunction) => {
   if (req.headers["content-type"] !== "application/json") {
     res
       .status(400)
@@ -16,10 +18,15 @@ export const requireJsonContent = (req, res, next) => {
 /**
  * Controlla se nel body è presente un titolo e che non sia una stringa vuota
  */
-export const isTitleCorrect = (req, res, next) => {
+const isTitleCorrect = (req: Request, res: Response, next: NextFunction) => {
   if (!req.body.title || req.body.title === "") {
     res.status(400).send({ error: "Titolo mancante" });
   } else {
     next();
   }
+};
+
+export { 
+  requireJsonContent, 
+  isTitleCorrect 
 };

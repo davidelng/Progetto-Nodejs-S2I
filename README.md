@@ -14,6 +14,7 @@ In ultimo, nonostante abbia scelto MySQL come database, ho preferito l'utilizzo 
 - Express
 - MySQL (Prisma ORM)
 - ESLint (controllo del codice)
+- TypeScript
 
 ## Configurazione
 
