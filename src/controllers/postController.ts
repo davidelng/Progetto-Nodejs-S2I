@@ -1,9 +1,9 @@
-const { PrismaClient } = require("@prisma/client");
-const { requireJsonContent, isTitleCorrect } = require("./middlewares");
+import { PrismaClient } from "@prisma/client";
+import { requireJsonContent, isTitleCorrect } from "./middlewares";
 
 const prisma = new PrismaClient();
 
-module.exports = (app) => {
+export const postController = (app) => {
   /**
    * READ
    */

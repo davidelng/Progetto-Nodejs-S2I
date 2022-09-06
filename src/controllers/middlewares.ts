@@ -1,7 +1,7 @@
 /**
  * Controlla che il body non sia vuoto e che i dati inviati siano in formato json
  */
-const requireJsonContent = (req, res, next) => {
+export const requireJsonContent = (req, res, next) => {
   if (req.headers["content-type"] !== "application/json") {
     res
       .status(400)
@@ -16,15 +16,10 @@ const requireJsonContent = (req, res, next) => {
 /**
  * Controlla se nel body è presente un titolo e che non sia una stringa vuota
  */
-const isTitleCorrect = (req, res, next) => {
+export const isTitleCorrect = (req, res, next) => {
   if (!req.body.title || req.body.title === "") {
     res.status(400).send({ error: "Titolo mancante" });
   } else {
     next();
   }
-};
-
-module.exports = {
-  requireJsonContent,
-  isTitleCorrect,
 };

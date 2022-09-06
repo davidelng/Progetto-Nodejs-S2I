@@ -1,11 +1,12 @@
 /**
  * Imports
  */
-require("dotenv").config();
-const express = require("express");
-const userController = require("./controllers/userController");
-const postController = require("./controllers/postController");
-const interactionController = require("./controllers/interactionsController");
+import * as dotenv from "dotenv";
+dotenv.config();
+import express from "express";
+import { userController } from "./controllers/userController";
+import { postController } from "./controllers/postController";
+import { interactionController } from "./controllers/interactionController";
 
 /**
  * Express config
