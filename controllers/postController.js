@@ -1,4 +1,4 @@
-const { Prisma, PrismaClient } = require("@prisma/client");
+const { PrismaClient } = require("@prisma/client");
 const { requireJsonContent, isTitleCorrect } = require("./middlewares");
 
 const prisma = new PrismaClient();
@@ -52,13 +52,29 @@ module.exports = (app) => {
     const posts = await prisma.post.findMany({
       include: {
         interactions: {
-          // select: {
-          //   type: true,
-          // },
           where: {
             createdAt: {
               gte: new Date(date),
-              lte: new Date(date),
+            },
+          },
+        },
+      },
+    });
+    if (posts.length > 0) {
+      res.status(200).json(posts);
+    } else {
+      res.status(404).json({ error: "Nessun post trovato!" });
+    }
+  });
+
+  app.get("/posts/city/:city", async (req, res) => {
+    const { city } = req.params;
+    const posts = await prisma.post.findMany({
+      include: {
+        interactions: {
+          where: {
+            user: {
+              city: city,
             },
           },
         },

@@ -31,7 +31,7 @@ interactionController(app);
 /**
  * Fallback per route inesistenti
  */
-app.use((req, res, next) => {
+app.use((req, res) => {
   res.status(404).json({ message: "La pagina è inesistente" });
 });
 

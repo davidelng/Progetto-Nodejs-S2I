@@ -13,11 +13,13 @@ In ultimo, nonostante abbia scelto MySQL come database, ho preferito l'utilizzo 
 - Node.js
 - Express
 - MySQL (Prisma ORM)
+- ESLint (controllo del codice)
 
 ## Configurazione
 
-- Clona il progetto in locale, poi crea un database su mysql.
-- Crea un file `.env` o modifica e rinomina `.env.example` inserendo la porta sulla quale vuoi avviare il server (se omessa di default è 3000)
-- Completa la stringa con l'url del database inserendo nome utente, password, host, porta e nome del db (per maggiori info sulle db string di Prisma visitare [la documentazione](https://pris.ly/d/connection-strings)).
+1. Clona il progetto in locale, poi crea un database su mysql o importa il file di migrazione.
+2. Esegui `npm install` per installare tutte le dipendenze necessarie.
+3. Crea un file `.env` o modifica e rinomina `.env.example` inserendo la porta sulla quale vuoi avviare il server (se omessa di default è 3000)
+4. Completa la stringa con l'url del database inserendo nome utente, password, host, porta e nome del db (per maggiori info sulle db string di Prisma visitare [la documentazione](https://pris.ly/d/connection-strings)).
 
 ## Come utilizzare le REST API
