@@ -8,7 +8,9 @@ module.exports = (app) => {
    * READ
    */
   app.get("/posts", async (req, res) => {
-    const posts = await prisma.post.findMany();
+    const posts = await prisma.post.findMany({
+      include: { interactions: true },
+    });
     if (posts.length > 0) {
       res.status(200).json(posts);
     } else {
@@ -25,6 +27,47 @@ module.exports = (app) => {
       res.status(200).json(post);
     } else {
       res.status(404).json({ error: "Nessun post trovato" });
+    }
+  });
+
+  app.get("/posts/filter/:date", async (req, res) => {
+    const { date } = req.params;
+    const posts = await prisma.post.findMany({
+      where: {
+        createdAt: {
+          gte: new Date(date),
+        },
+      },
+      include: { interactions: true },
+    });
+    if (posts.length > 0) {
+      res.status(200).json(posts);
+    } else {
+      res.status(404).json({ error: "Nessun post trovato!" });
+    }
+  });
+
+  app.get("/posts/inter/:date", async (req, res) => {
+    const { date } = req.params;
+    const posts = await prisma.post.findMany({
+      include: {
+        interactions: {
+          // select: {
+          //   type: true,
+          // },
+          where: {
+            createdAt: {
+              gte: new Date(date),
+              lte: new Date(date),
+            },
+          },
+        },
+      },
+    });
+    if (posts.length > 0) {
+      res.status(200).json(posts);
+    } else {
+      res.status(404).json({ error: "Nessun post trovato!" });
     }
   });
 
