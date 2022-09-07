@@ -46,7 +46,7 @@ export const interactionController = (app: Express) => {
    * UPDATE
    */
   app.put(
-    "/post/:postId/interaction/:interactionId",
+    "/interaction/:interactionId",
     requireJsonContent,
     isAvailableInteraction,
     async (req, res) => {
@@ -71,7 +71,7 @@ export const interactionController = (app: Express) => {
   /**
    * DELETE
    */
-  app.delete("/post/:postid/interaction/:interactionId", async (req, res) => {
+  app.delete("/interaction/:interactionId", async (req, res) => {
     const { interactionId } = req.params;
 
     try {

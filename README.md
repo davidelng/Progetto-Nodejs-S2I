@@ -26,3 +26,79 @@ In ultimo, nonostante abbia scelto MySQL come database, ho preferito l'utilizzo 
 5. Eseguire `npm run dev` per avviare l'ambiente di sviluppo o `npm start` per compilare il progetto e testare l'ambiente di produzione
 
 ## Come utilizzare le REST API
+
+Attraverso gli endpoint abbiamo la possibilità di leggere, inserire, cancellare e filtrare record come utenti, post e interazioni.
+
+### Utenti
+
+- **GET /users** = ritorna tutti gli utenti
+- **GET /user/:id** = ritorna l'utente corrispondente all'id specificato
+- **POST /signup** = registra un utente inserendo nel body
+
+```json
+{
+  "nickname": "start2impact",
+  "age": 25,
+  "city": "Roma"
+}
+```
+
+- **PUT /user/:id** = aggiorna le informazioni dell'utente con l'id specificato, non è necessario specificare tutti i parametri
+
+```json
+{
+  "nickname": "start2impact", // non obbligatorio
+  "age": 25, // non obbligatorio
+  "city": "Roma" // non obbligatorio
+}
+```
+
+- **DELETE /user/:id** = cancella l'utente con l'id specificato
+
+### Post e filtri
+
+- **GET /posts** = ritorna tutti i post
+- **GET /posts/date/:date** = ritorna tutti i post inseriti prima della data specificata
+- **GET /post/:id** = ritorna il post specifico associato all'id inserito nei parametri
+- **GET /post/:id/city/:city** = ritorna il post dell'id con le interazioni filtrate per città
+- **GET /post/:id/date/:date** = ritorna il post dell'id con le interazioni filtrate per data
+- **GET /post/:id/:date/:city** = ritorna il post dell'id con le interazioni filtrate per data e luogo
+- **POST /post** = permette di creare un nuovo post, specificando nel body
+
+```json
+{
+  "title": "Titolo"
+}
+```
+
+- **PUT /post/:id** = modifica il post con l'id specificato, inserendo nel body
+
+```json
+{
+  "title": "Nuovo titolo"
+}
+```
+
+- **DELETE /post/:id** = cancella il post corrispondente all'id specificato
+
+### Interazioni
+
+- **GET /interactions** = disabilitata, ritorna tutte le interazioni
+- **POST /post/:postId/interaction** = permette di inserire un'interazione sul post associato all'id inserito nei parametri, nel body va inserito
+
+```json
+{
+  "type": "like", // o "commento"
+  "userId": 1
+}
+```
+
+- **PUT /interaction/:interactionId** = modifica il tipo dell'interazione specificata con l'id, inserendo nel body
+
+```json
+{
+  "type": "like" // o "commento"
+}
+```
+
+- **DELETE /interaction/:interactionId** = cancella l'interazione associata all'id specificato
