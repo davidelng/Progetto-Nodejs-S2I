@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { requireJsonContent } from "./middlewares";
+import { requireJsonContent, isAvailableInteraction } from "./middlewares";
 import type { Express } from "express";
 
 const prisma = new PrismaClient();
@@ -22,9 +22,9 @@ export const interactionController = (app: Express) => {
   /**
    * CREATE
    */
-  app.post("/post/:postId/:type", requireJsonContent, async (req, res) => {
-    const { type, postId } = req.params;
-    const { userId } = req.body;
+  app.post("/post/:postId/interaction", requireJsonContent, isAvailableInteraction, async (req, res) => {
+    const { postId } = req.params;
+    const { userId, type } = req.body;
 
     try {
       const result = await prisma.interaction.create({
@@ -46,8 +46,9 @@ export const interactionController = (app: Express) => {
    * UPDATE
    */
   app.put(
-    "/post/:postId/:interactionId",
+    "/post/:postId/interaction/:interactionId",
     requireJsonContent,
+    isAvailableInteraction,
     async (req, res) => {
       const { interactionId } = req.params;
       const { type } = req.body;
@@ -70,13 +71,13 @@ export const interactionController = (app: Express) => {
   /**
    * DELETE
    */
-  app.delete("/post/:postid/:interactionid", async (req, res) => {
-    const { interactionid } = req.params;
+  app.delete("/post/:postid/interaction/:interactionId", async (req, res) => {
+    const { interactionId } = req.params;
 
     try {
       const interaction = await prisma.interaction.delete({
         where: {
-          id: Number(interactionid),
+          id: Number(interactionId),
         }
       });
       res.status(200).json({

@@ -26,7 +26,34 @@ const isTitleCorrect = (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+/**
+ * Controlla se la data inserita nei parametri è formattata correttamente
+ */
+const isDateCorrect = (req: Request, res: Response, next: NextFunction) => {
+  const dateRegex = new RegExp("^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$", "gm");
+  const { date } = req.params;
+  if (dateRegex.test(date) !== true) {
+    res.status(400).send({ error: "La data non è corretta o non rispecchia il formato YYYY-MM-DD" });
+  } else {
+    next();
+  }
+};
+
+/**
+ * Controlla se il tipo di interazione è "like" o "commento"
+ */
+const isAvailableInteraction = (req: Request, res: Response, next: NextFunction) => { 
+  const { type } = req.body;
+  if ( type !== "like" && type !== "commento") {
+    res.status(400).send({ error: "Non un'interazione di tipo valido, deve essere 'like' o 'commento'" });
+  } else {
+    next();
+  }
+};
+
 export { 
   requireJsonContent, 
-  isTitleCorrect 
+  isTitleCorrect,
+  isDateCorrect,
+  isAvailableInteraction
 };
