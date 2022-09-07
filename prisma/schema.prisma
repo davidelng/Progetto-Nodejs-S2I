@@ -21,7 +21,7 @@ model Post {
 model User {
   id           Int           @id @default(autoincrement())
   nickname     String        @unique
-  age          String
+  age          Int
   city         String
   interactions Interaction[]
 }

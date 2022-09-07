@@ -37,17 +37,13 @@ export const userController = (app: Express) => {
 
     try {
       const result = await prisma.user.create({
-        data: {
-          nickname,
-          age,
-          city,
-        },
+        data: { nickname, age, city },
       });
       res
         .status(200)
         .json({ message: "Utente creato correttamente", user: result });
     } catch {
-      res.status(400).json({ error: "Impossibile creare l'utente" });
+      res.status(400).json({ error: "Impossibile creare l'utente"});
     }
   });
 

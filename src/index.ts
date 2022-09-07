@@ -16,10 +16,7 @@ const app = express();
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.status(200).json({
-    message:
-      "L'app funziona correttamente, consulta il README per sapere come utilizzarla",
-  });
+  res.status(200).send("L'app funziona correttamente! 👾\n Consulta il README📘 per istruzioni su come utilizzarla");
 });
 
 /**
@@ -33,7 +30,7 @@ interactionController(app);
  * Fallback per route inesistenti
  */
 app.use((req, res) => {
-  res.status(404).json({ message: "La pagina è inesistente" });
+  res.status(404).send("La pagina è inesistente 👻");
 });
 
 /**
