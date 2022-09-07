@@ -1,6 +1,6 @@
 {
   "name": "nodejs-s2i",
-  "version": "1.0.0",
+  "version": "1.3.2",
   "description": "rest api con nodejs",
   "main": "./dist/index.js",
   "scripts": {

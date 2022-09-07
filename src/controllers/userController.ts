@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { requireJsonContent } from "./middlewares";
 import type { Express } from "express";
+import type { DbError } from "../types";
 
 const prisma = new PrismaClient();
 
@@ -20,7 +21,7 @@ export const userController = (app: Express) => {
   app.get("/user/:id", async (req, res) => {
     const { id } = req.params;
     const user = await prisma.user.findUnique({
-      where: { id: Number(id) },
+      where: { id: Number(id) }
     });
     if (user) {
       res.status(200).json(user);
@@ -37,13 +38,19 @@ export const userController = (app: Express) => {
 
     try {
       const result = await prisma.user.create({
-        data: { nickname, age, city },
+        data: { nickname, age, city }
       });
       res
         .status(200)
         .json({ message: "Utente creato correttamente", user: result });
-    } catch {
-      res.status(400).json({ error: "Impossibile creare l'utente"});
+    } catch (e: unknown) {
+      const error = e as DbError;
+      if ( error.code === "P2002") {
+        error.message = "Nickname già in uso";
+      } else {
+        error.message = "Impossibile creare l'utente";
+      }
+      res.status(400).json({ error: error.message });
     }
   });
 
@@ -57,18 +64,28 @@ export const userController = (app: Express) => {
     try {
       const updatedUser = await prisma.user.update({
         where: { id: Number(id) },
-        data: { nickname: nickname, age: age, city: city },
+        data: { 
+          nickname: nickname, 
+          age: age, 
+          city: city 
+        }
       });
 
       res.status(200).json({
         message: "Utente aggiornato correttamente",
         post: updatedUser,
       });
-    } catch {
-      res.status(404).json({ error: "Impossibile aggiornare l'utente" });
+    } catch (e: unknown) {
+      const error = e as DbError;
+      if ( error.code === "P2025") {
+        error.message = `Nessun utente con id ${id}`;
+      } else {
+        error.message = "Impossibile aggiornare l'utente";
+      }
+      res.status(400).json({ error: error.message });
     }
   });
-
+  
   /**
    * DELETE
    */
@@ -79,7 +96,7 @@ export const userController = (app: Express) => {
       const user = await prisma.user.delete({
         where: {
           id: Number(id),
-        },
+        }
       });
       res
         .status(200)

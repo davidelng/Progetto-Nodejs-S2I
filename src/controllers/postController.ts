@@ -10,7 +10,7 @@ export const postController = (app: Express) => {
    */
   app.get("/posts", async (req, res) => {
     const posts = await prisma.post.findMany({
-      include: { interactions: true },
+      include: { interactions: true }
     });
     if (posts.length > 0) {
       res.status(200).json(posts);
@@ -22,7 +22,7 @@ export const postController = (app: Express) => {
   app.get("/post/:id", async (req, res) => {
     const { id } = req.params;
     const post = await prisma.post.findUnique({
-      where: { id: Number(id) },
+      where: { id: Number(id) }
     });
     if (post) {
       res.status(200).json(post);
@@ -37,9 +37,9 @@ export const postController = (app: Express) => {
       where: {
         createdAt: {
           gte: new Date(date),
-        },
+        }
       },
-      include: { interactions: true },
+      include: { interactions: true }
     });
     if (posts.length > 0) {
       res.status(200).json(posts);
@@ -56,10 +56,10 @@ export const postController = (app: Express) => {
           where: {
             createdAt: {
               gte: new Date(date),
-            },
-          },
-        },
-      },
+            }
+          }
+        }
+      }
     });
     if (posts.length > 0) {
       res.status(200).json(posts);
@@ -73,13 +73,13 @@ export const postController = (app: Express) => {
     const posts = await prisma.post.findMany({
       include: {
         interactions: {
-          where: {
-            user: {
-              city: city,
-            },
-          },
-        },
-      },
+          where: { 
+            user: { 
+              city: city 
+            } 
+          }
+        }
+      }
     });
     if (posts.length > 0) {
       res.status(200).json(posts);
@@ -96,9 +96,7 @@ export const postController = (app: Express) => {
 
     try {
       const result = await prisma.post.create({
-        data: {
-          title,
-        },
+        data: { title }
       });
       res
         .status(200)
@@ -118,9 +116,8 @@ export const postController = (app: Express) => {
     try {
       const updatedPost = await prisma.post.update({
         where: { id: Number(id) },
-        data: { title: title },
+        data: { title: title }
       });
-
       res
         .status(200)
         .json({ message: "Post aggiornato correttamente", post: updatedPost });
@@ -138,8 +135,8 @@ export const postController = (app: Express) => {
     try {
       const post = await prisma.post.delete({
         where: {
-          id: Number(id),
-        },
+          id: Number(id)
+        }
       });
       res
         .status(200)
