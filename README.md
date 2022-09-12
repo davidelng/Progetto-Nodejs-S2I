@@ -15,6 +15,7 @@ In ultimo, nonostante abbia scelto MySQL come database, ho preferito l'utilizzo 
 - MySQL (Prisma ORM)
 - ESLint (controllo del codice)
 - TypeScript
+- Mocha, Chai, Sinon, Supertest (testing)
 
 ## Configurazione
 
@@ -29,11 +30,11 @@ In ultimo, nonostante abbia scelto MySQL come database, ho preferito l'utilizzo 
 
 Attraverso gli endpoint abbiamo la possibilità di leggere, inserire, cancellare e filtrare record come utenti, post e interazioni.
 
-### Utenti
+### Utenti = `/users`
 
-- **GET /users** = ritorna tutti gli utenti
-- **GET /user/:id** = ritorna l'utente corrispondente all'id specificato
-- **POST /signup** = registra un utente inserendo nel body
+- **GET /** = ritorna tutti gli utenti
+- **GET /{id}** = ritorna l'utente corrispondente all'id specificato
+- **POST /** = registra un utente inserendo nel body
 
 ```json
 {
@@ -43,7 +44,7 @@ Attraverso gli endpoint abbiamo la possibilità di leggere, inserire, cancellare
 }
 ```
 
-- **PUT /user/:id** = aggiorna le informazioni dell'utente con l'id specificato, non è necessario specificare tutti i parametri
+- **PUT /{id}** = aggiorna le informazioni dell'utente con l'id specificato, non è necessario specificare tutti i parametri
 
 ```json
 {
@@ -53,17 +54,13 @@ Attraverso gli endpoint abbiamo la possibilità di leggere, inserire, cancellare
 }
 ```
 
-- **DELETE /user/:id** = cancella l'utente con l'id specificato
+- **DELETE /{id}** = cancella l'utente con l'id specificato
 
-### Post e filtri
+### Post e filtri = `/posts`
 
-- **GET /posts** = ritorna tutti i post
-- **GET /posts/date/:date** = ritorna tutti i post inseriti prima della data specificata
-- **GET /post/:id** = ritorna il post specifico associato all'id inserito nei parametri
-- **GET /post/:id/city/:city** = ritorna il post dell'id con le interazioni filtrate per città
-- **GET /post/:id/date/:date** = ritorna il post dell'id con le interazioni filtrate per data
-- **GET /post/:id/:date/:city** = ritorna il post dell'id con le interazioni filtrate per data e luogo
-- **POST /post** = permette di creare un nuovo post, specificando nel body
+- **GET /?date=YYYY-MM-DD** = ritorna tutti i post (se specificato, solo quelli inseriti prima della data specificata)
+- **GET /{id}?date=YYYY-MM-DD&city=Roma** = ritorna il post associato all'id, se specificato aggrega le interazioni filtrate per data e luogo
+- **POST /** = permette di creare un nuovo post, specificando nel body
 
 ```json
 {
@@ -71,7 +68,7 @@ Attraverso gli endpoint abbiamo la possibilità di leggere, inserire, cancellare
 }
 ```
 
-- **PUT /post/:id** = modifica il post con l'id specificato, inserendo nel body
+- **PUT /{id}** = modifica il post con l'id specificato, inserendo nel body
 
 ```json
 {
@@ -79,12 +76,12 @@ Attraverso gli endpoint abbiamo la possibilità di leggere, inserire, cancellare
 }
 ```
 
-- **DELETE /post/:id** = cancella il post corrispondente all'id specificato
+- **DELETE /{id}** = cancella il post corrispondente all'id specificato
 
-### Interazioni
+### Interazioni = `/interactions`
 
-- **GET /interactions** = disabilitata, ritorna tutte le interazioni
-- **POST /post/:postId/interaction** = permette di inserire un'interazione sul post associato all'id inserito nei parametri, nel body va inserito
+- **GET /** = disabilitata, ritorna tutte le interazioni
+- **POST /{postId}** = permette di inserire un'interazione sul post associato all'id inserito nei parametri, nel body va inserito
 
 ```json
 {
@@ -93,7 +90,7 @@ Attraverso gli endpoint abbiamo la possibilità di leggere, inserire, cancellare
 }
 ```
 
-- **PUT /interaction/:interactionId** = modifica il tipo dell'interazione specificata con l'id, inserendo nel body
+- **PUT /{interactionId}** = modifica il tipo dell'interazione specificata con l'id, inserendo nel body
 
 ```json
 {
@@ -101,4 +98,4 @@ Attraverso gli endpoint abbiamo la possibilità di leggere, inserire, cancellare
 }
 ```
 
-- **DELETE /interaction/:interactionId** = cancella l'interazione associata all'id specificato
+- **DELETE /{interactionId}** = cancella l'interazione associata all'id specificato
