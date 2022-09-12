@@ -22,7 +22,7 @@ const prisma = new PrismaClient();
 /**
  * CREATE
  */
-router.post("/:postId/interaction", requireJsonContent, isAvailableInteraction, async (req, res) => {
+router.post("/:postId", requireJsonContent, isAvailableInteraction, async (req, res) => {
   const { postId } = req.params;
   const { userId, type } = req.body;
 

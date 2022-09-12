@@ -8,9 +8,12 @@ const prisma = new PrismaClient();
 /**
  * READ
  */
-// ottiene tutti i post
 router.get("/", async (req, res) => {
+  // parametro query per filtare i post in base alla data di creazione
+  const date = req.query.date !== undefined ? req.query.date as string : Date.now();
+
   const posts = await prisma.post.findMany({
+    where: { createdAt: { lte: new Date(date) } },
     select: {
       id: true,
       createdAt: true,
@@ -32,11 +35,14 @@ router.get("/", async (req, res) => {
   }
 });
 
-// ottiene il post corrispondente all'id
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
+  // parametri query per filtrare le interazioni del post per città e data
+  const date = req.query.date !== undefined ? req.query.date as string : Date.now();
+  const city = req.query.city !== undefined ? req.query.city as string : undefined;
+
   const post = await prisma.post.findUnique({
-    where: { id: Number(id) },
+    where: { id: parseInt(id) },
     select: {
       id: true,
       createdAt: true,
@@ -47,132 +53,16 @@ router.get("/:id", async (req, res) => {
           createdAt: true,
           type: true,
           user: { select: { nickname: true } }
+        },
+        where: { 
+          createdAt: { lte: new Date(date) }, 
+          user: { city: city } 
         }
       }
     }
   });
   if (post) {
     res.status(200).json(post);
-  } else {
-    res.status(404).json({ error: "Nessun post trovato" });
-  }
-});
-
-// ottiene tutti i post prima della data specificata
-router.get("/date/:date", isDateCorrect, async (req, res) => {
-  const { date } = req.params;
-  const posts = await prisma.post.findMany({
-    where: {
-      createdAt: {
-        lte: new Date(date),
-      }
-    },
-    select: {
-      id: true,
-      createdAt: true,
-      title: true,
-      interactions: {
-        select: {
-          id: true,
-          createdAt: true,
-          type: true,
-          user: { select: { nickname: true } }
-        }
-      }
-    }
-  });
-  if (posts.length > 0) {
-    res.status(200).json(posts);
-  } else {
-    res.status(404).json({ error: `Nessun post prima di ${date} trovato!` });
-  }
-});
-
-// ottiene il post corrispondente all'id, mostra le interazioni prima della data specificata
-router.get("/:id/date/:date", isDateCorrect, async (req, res) => {
-  const { id, date } = req.params;
-  const post = await prisma.post.findUnique({
-    where: { id: Number(id) },
-    select: {
-      id: true,
-      createdAt: true,
-      title: true,
-      interactions: {
-        select: {
-          id: true,
-          createdAt: true,
-          type: true,
-          user: { select: { nickname: true } }
-        },
-        where: { createdAt: { lte: new Date(date) } }
-      }
-    }
-  });
-  if (post && post.interactions.length > 0) {
-    res.status(200).json(post);
-  } else if (post && post.interactions.length === 0 ) {
-    res.status(404).json({ post: post, error: `Nessuna interazione prima di ${date} per questo post` });
-  } else {
-    res.status(404).json({ error: "Nessun post trovato" });
-  }
-});
-
-// ottiene il post corrispondente all'id, mostra le interazioni nella città specificata
-router.get("/:id/city/:city", async (req, res) => {
-  const { id, city } = req.params;
-  const post = await prisma.post.findUnique({
-    where: { id: Number(id) },
-    select: {
-      id: true,
-      createdAt: true,
-      title: true,
-      interactions: {
-        select: {
-          id: true,
-          createdAt: true,
-          type: true,
-          user: { select: { nickname: true } }
-        },
-        where: { user: { city: city } }
-      }
-    }
-  });
-  if (post && post.interactions.length > 0) {
-    res.status(200).json(post);
-  } else if (post && post.interactions.length === 0) {
-    res.status(404).json({ post: post, error: `Nessuna interazione da ${city} per questo post` });
-  } else {
-    res.status(404).json({ error: "Nessun post trovato" });
-  }
-});
-
-// ottiene il post corrispondente all'id, mostra le interazioni prima della data e nella città specificate
-router.get("/:id/:date/:city", isDateCorrect, async (req, res) => {
-  const { id, date, city } = req.params;
-  const post = await prisma.post.findUnique({
-    where: { id: Number(id) },
-    select: {
-      id: true,
-      createdAt: true,
-      title: true,
-      interactions: {
-        select: {
-          id: true,
-          createdAt: true,
-          type: true,
-          user: { select: { nickname: true } }
-        },
-        where: {
-          createdAt: { lte: new Date(date) },
-          user: { city: city } 
-        }
-      }
-    }
-  });
-  if (post && post.interactions.length > 0) {
-    res.status(200).json(post);
-  } else if (post && post.interactions.length === 0 ) {
-    res.status(404).json({ post: post, error: `Nessuna interazione prima di ${date} a ${city} per questo post` });
   } else {
     res.status(404).json({ error: "Nessun post trovato" });
   }
