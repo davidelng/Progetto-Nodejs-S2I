@@ -4,9 +4,9 @@
 import * as dotenv from "dotenv";
 dotenv.config();
 import express from "express";
-import { userController } from "./controllers/userController";
-import { postController } from "./controllers/postController";
-import { interactionController } from "./controllers/interactionController";
+import { userRouter } from "./controllers/userController";
+import { postRouter } from "./controllers/postController";
+import { interactionRouter } from "./controllers/interactionController";
 
 /**
  * Express config
@@ -22,9 +22,9 @@ app.get("/", (req, res) => {
 /**
  * Inizializzazione controller CRUD
  */
-userController(app);
-postController(app);
-interactionController(app);
+app.use("/users", userRouter);
+app.use("/posts", postRouter);
+app.use("/interactions", interactionRouter);
 
 /**
  * Fallback per route inesistenti
