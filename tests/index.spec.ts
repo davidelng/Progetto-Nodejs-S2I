@@ -1,17 +1,17 @@
 import express from "express";
-import { assert, expect, should } from "chai"; 
 import request from "supertest";
+import { assert, expect, should } from "chai";
 
-describe("Node REST API app", () => {
+describe("REST API Server", () => {
 
     const app = express();
 
     app.get("/", (req, res) => {
-        res.status(200).send("OK");
+        res.status(200).send("L'app funziona correttamente! 👾\n Consulta il README📘 per istruzioni su come utilizzarla");
     });
 
     app.use((req, res) => {
-        res.status(404).send("Not found");
+        res.status(404).send("La pagina è inesistente 👻");
     });
 
     before((done) => {
@@ -21,7 +21,7 @@ describe("Node REST API app", () => {
     });
 
     after(() => {
-        console.log("Tests done!");
+        console.log("Server tests done!");
     });
 
     it("Should create a server without errors", (done) => {

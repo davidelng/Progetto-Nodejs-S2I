@@ -13,8 +13,8 @@ In ultimo, nonostante abbia scelto MySQL come database, ho preferito l'utilizzo 
 - Node.js
 - Express
 - MySQL (Prisma ORM)
-- ESLint (controllo del codice)
 - TypeScript
+- ESLint (controllo del codice)
 - Mocha, Chai, Sinon, Supertest (testing)
 
 ## Configurazione

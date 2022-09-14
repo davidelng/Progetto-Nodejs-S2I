@@ -1,12 +1,17 @@
 /**
+ * 
+ ***************************
+ *  NODE REST API Project  *
+ ***************************
+ * 
  * Imports
  */
 import * as dotenv from "dotenv";
 dotenv.config();
 import express from "express";
-import { userRouter } from "./controllers/userController";
-import { postRouter } from "./controllers/postController";
-import { interactionRouter } from "./controllers/interactionController";
+import { usersRouter } from "./routes/users";
+import { postsRouter } from "./routes/posts";
+import { interactionsRouter } from "./routes/interactions";
 
 /**
  * Express config
@@ -22,9 +27,9 @@ app.get("/", (req, res) => {
 /**
  * Inizializzazione controller CRUD
  */
-app.use("/users", userRouter);
-app.use("/posts", postRouter);
-app.use("/interactions", interactionRouter);
+app.use("/users", usersRouter);
+app.use("/posts", postsRouter);
+app.use("/interactions", interactionsRouter);
 
 /**
  * Fallback per route inesistenti

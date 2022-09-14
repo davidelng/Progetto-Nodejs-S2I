@@ -1,14 +1,13 @@
 import express from "express";
-import { PrismaClient } from "@prisma/client";
-import { requireJsonContent, isTitleCorrect, isDateCorrect } from "./middlewares";
+import prisma from "../utils/prisma";
+import { requireJsonContent, isTitleCorrect, isDateCorrect } from "../utils/middlewares";
 
 const router = express.Router();
-const prisma = new PrismaClient();
 
 /**
  * READ
  */
-router.get("/", async (req, res) => {
+router.get("/", isDateCorrect, async (req, res) => {
   // parametro query per filtare i post in base alla data di creazione
   const date = req.query.date !== undefined ? req.query.date as string : Date.now();
 
@@ -35,7 +34,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", isDateCorrect, async (req, res) => {
   const { id } = req.params;
   // parametri query per filtrare le interazioni del post per città e data
   const date = req.query.date !== undefined ? req.query.date as string : Date.now();
@@ -128,4 +127,4 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-export { router as postRouter };
+export { router as postsRouter };

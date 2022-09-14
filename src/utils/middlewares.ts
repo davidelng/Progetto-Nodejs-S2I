@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from "express";
 
 /**
- * Controlla che il body non sia vuoto e che i dati inviati siano in formato json
+ * Controlla che il body non sia vuoto e che i dati inviati siano in formato json 
  */
 const requireJsonContent = (req: Request, res: Response, next: NextFunction) => {
   if (req.headers["content-type"] !== "application/json") {
@@ -31,8 +31,8 @@ const isTitleCorrect = (req: Request, res: Response, next: NextFunction) => {
  */
 const isDateCorrect = (req: Request, res: Response, next: NextFunction) => {
   const dateRegex = new RegExp("^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$", "gm");
-  const { date } = req.params;
-  if (dateRegex.test(date) !== true) {
+  const date = req.query.date ? req.query.date as string : null;
+  if (date !== null && dateRegex.test(date) !== true) {
     res.status(400).send({ error: "La data non è corretta o non rispecchia il formato YYYY-MM-DD" });
   } else {
     next();

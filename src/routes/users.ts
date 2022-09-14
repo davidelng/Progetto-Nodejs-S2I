@@ -1,10 +1,9 @@
 import express from "express";
-import { PrismaClient } from "@prisma/client";
-import { requireJsonContent } from "./middlewares";
-import type { DbError } from "../types";
+import prisma from "../utils/prisma";
+import { requireJsonContent } from "../utils/middlewares";
+import type { DbError } from "../utils/types";
 
 const router = express.Router();
-const prisma = new PrismaClient();
 
 /**
  * READ
@@ -108,4 +107,4 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-export { router as userRouter };
+export { router as usersRouter };

@@ -1,9 +1,8 @@
 import express from "express";
-import { PrismaClient } from "@prisma/client";
-import { requireJsonContent, isAvailableInteraction } from "./middlewares";
+import prisma from "../utils/prisma";
+import { requireJsonContent, isAvailableInteraction } from "../utils/middlewares";
 
 const router = express.Router();
-const prisma = new PrismaClient();
 
 /**
  * READ
@@ -91,4 +90,4 @@ router.delete("/:interactionId", async (req, res) => {
   }
 });
 
-export { router as interactionRouter };
+export { router as interactionsRouter };
