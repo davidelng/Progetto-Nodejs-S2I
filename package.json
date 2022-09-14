@@ -7,7 +7,8 @@
     "test": "mocha -r ts-node/register 'tests/**/*.ts'",
     "build": "npx tsc",
     "dev": "npx ts-node ./src/index.ts",
-    "start": "npx tsc && node ./dist/index.js"
+    "start": "npx tsc && node ./dist/index.js",
+    "migrate": "npx prisma migrate dev --name init"
   },
   "author": "Davide Longo",
   "license": "ISC",

@@ -1,3 +1,4 @@
+// Imports e router
 import express from "express";
 import prisma from "../utils/prisma";
 import { requireJsonContent, isAvailableInteraction } from "../utils/middlewares";
@@ -90,4 +91,5 @@ router.delete("/:interactionId", async (req, res) => {
   }
 });
 
+// Export
 export { router as interactionsRouter };

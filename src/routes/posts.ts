@@ -1,3 +1,4 @@
+// Imports e router
 import express from "express";
 import prisma from "../utils/prisma";
 import { requireJsonContent, isTitleCorrect, isDateCorrect } from "../utils/middlewares";
@@ -127,4 +128,5 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+// Export
 export { router as postsRouter };

@@ -1,3 +1,10 @@
+/**
+ * MIDDLEWARES:
+ * 
+ * In questo file è possibile scrivere i propri middleware da usare con Express per operare sulle richieste
+ * Vanno esportati nell'export in coda al file
+ */
+
 import type { Request, Response, NextFunction } from "express";
 
 /**

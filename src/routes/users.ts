@@ -1,3 +1,4 @@
+// Imports e router
 import express from "express";
 import prisma from "../utils/prisma";
 import { requireJsonContent } from "../utils/middlewares";
@@ -107,4 +108,5 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+// Export
 export { router as usersRouter };
