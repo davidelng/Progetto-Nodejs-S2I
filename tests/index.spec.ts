@@ -29,7 +29,7 @@ describe("REST API Server", () => {
     });
 
     it("Should handle undefined routes", (done) => {
-        request(app).get("/asjdhk").expect(404, done);
+        request(app).get("/notavalidroute").expect(404, done);
     });
 
 });

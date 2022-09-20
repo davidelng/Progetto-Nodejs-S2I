@@ -1,13 +1,13 @@
 import express from "express";
 import request from "supertest";
 import { assert, expect, should } from "chai"; 
-import { postRouter } from "../src/routes/posts";
+import { postsRouter } from "../src/routes/posts";
 
 describe("Post controller", () => {
 
     const app = express();
 
-    app.use("/posts", postRouter);
+    app.use("/posts", postsRouter);
 
     after(() => {
         console.log("Post tests done!");

@@ -21,7 +21,7 @@ In ultimo, nonostante abbia scelto MySQL come database, ho preferito l'utilizzo 
 
 1. Clona il progetto in locale, poi esegui `npm install` per installare tutte le dipendenze necessarie.
 2. Crea un database su mysql o importa il file di migrazione.
-   - Se invece di importare il file di migrazione hai creato un nuovo db è necessario effettuare una migrazione con Prisma, eseguendo `npx prisma migrate dev --name init`, per i dettagli consultare [la guida](https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scratch/relational-databases/using-prisma-migrate-node-mysql)
+   - Se invece di importare il file di migrazione hai creato un nuovo db è necessario effettuare una migrazione con Prisma, eseguendo `npx prisma migrate dev --name init`, per i dettagli consultare la[guida ufficiale](https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scratch/relational-databases/using-prisma-migrate-node-mysql)
 3. Crea un file `.env` o modifica e rinomina `.env.example` inserendo la porta sulla quale vuoi avviare il server (se omessa di default è 3000)
 4. Completa la stringa con l'url del database inserendo nome utente, password, host, porta e nome del db (per maggiori info sulle db string di Prisma visitare [la documentazione](https://pris.ly/d/connection-strings)).
 5. Eseguire `npm run dev` per avviare l'ambiente di sviluppo o `npm start` per compilare il progetto e testare l'ambiente di produzione
