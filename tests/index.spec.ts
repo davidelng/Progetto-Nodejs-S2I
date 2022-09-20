@@ -1,6 +1,5 @@
 import express from "express";
 import request from "supertest";
-import { assert, expect, should } from "chai";
 
 describe("REST API Server", () => {
 
@@ -14,15 +13,15 @@ describe("REST API Server", () => {
         res.status(404).send("La pagina è inesistente 👻");
     });
 
-    before((done) => {
-        app.listen(3000, () => {
-          done();
-        });
-    });
+    // before((done) => {
+    //     app.listen(3000, () => {
+    //       done();
+    //     });
+    // });
 
-    after(() => {
-        console.log("Server tests done!");
-    });
+    // after(() => {
+    //     console.log("Server tests done!");
+    // });
 
     it("Should create a server without errors", (done) => {
         request(app).get("/").expect(200, done);

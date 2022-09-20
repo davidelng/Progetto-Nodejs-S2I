@@ -15,7 +15,7 @@ In ultimo, nonostante abbia scelto MySQL come database, ho preferito l'utilizzo 
 - MySQL (Prisma ORM)
 - TypeScript
 - ESLint (controllo del codice)
-- Mocha, Chai, Sinon, Supertest (testing)
+- Mocha, Supertest, Sinon (testing)
 
 ## Configurazione
 
@@ -25,6 +25,16 @@ In ultimo, nonostante abbia scelto MySQL come database, ho preferito l'utilizzo 
 3. Crea un file `.env` o modifica e rinomina `.env.example` inserendo la porta sulla quale vuoi avviare il server (se omessa di default è 3000)
 4. Completa la stringa con l'url del database inserendo nome utente, password, host, porta e nome del db (per maggiori info sulle db string di Prisma visitare [la documentazione](https://pris.ly/d/connection-strings)).
 5. Eseguire `npm run dev` per avviare l'ambiente di sviluppo o `npm start` per compilare il progetto e testare l'ambiente di produzione
+
+## Script NPM
+
+Puoi eseguire questi script con `npm run`:
+
+- `test` = esegue i test con mocha,
+- `build` = compila il codice da typescript a javascript,
+- `dev` = avvia il server di sviluppo,
+- `start` = compila il codice e avvia il server di produzione,
+- `migrate` = effettua una migrazione sul database
 
 ## Come utilizzare le REST API
 

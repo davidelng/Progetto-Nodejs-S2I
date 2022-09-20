@@ -73,7 +73,7 @@ router.put("/:id", requireJsonContent, async (req, res) => {
 
     res.status(200).json({
       message: "Utente aggiornato correttamente",
-      post: updatedUser,
+      user: updatedUser,
     });
   } catch (e: unknown) {
     const error = e as DbError;
