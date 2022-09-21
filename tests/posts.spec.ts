@@ -4,8 +4,8 @@ import { postsRouter } from "../src/routes/posts";
 
 describe("Post controller", () => {
 
-    const app = express();
-
-    app.use("/posts", postsRouter);
+  const app = express();
+  app.use(express.json());
+  app.use("/posts", postsRouter);
 
 });

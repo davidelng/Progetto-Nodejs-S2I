@@ -4,8 +4,8 @@ import { interactionsRouter } from "../src/routes/interactions";
 
 describe("Interaction controller", () => {
 
-    const app = express();
-
-    app.use("/interactions", interactionsRouter);
+  const app = express();
+  app.use(express.json());
+  app.use("/interactions", interactionsRouter);
 
 });
