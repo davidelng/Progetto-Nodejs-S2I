@@ -6,35 +6,38 @@ Il progetto prevede la creazione di REST API utilizzando Node, nel caso specific
 
 Ho utilizzato Express per gestire i routing, le chiamate e ho sfruttato i middleware per controllare il contenuto delle chiamate.
 
-In ultimo, nonostante abbia scelto MySQL come database, ho preferito l'utilizzo di un ORM come Prisma per interagire con lo stesso.
+In ultimo, nonostante abbia scelto MySQL come database, ho preferito l'utilizzo di un ORM come Prisma per interagire con lo stesso. Prisma si è occupato di creare i modelli e associati tipi per il database.
 
-### Cosa ho usato
+Ho eseguito degli unit test capillari facendo un mock del database con Jest e Supertest.
 
-- Node.js
-- Express
-- MySQL (Prisma ORM)
-- TypeScript
-- ESLint (controllo del codice)
-- Mocha, Supertest, Sinon (testing)
+### Cosa ho usato in sintesi
+
+- [Node.js](https://nodejs.org/en/)
+- [Express.js](https://expressjs.com/it/)
+- [MySQL](https://www.mysql.com/it/)
+- [Prisma](https://www.prisma.io/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [ESLint](https://eslint.org/)
+- [Jest](https://jestjs.io/)
+- [Supertest](https://www.npmjs.com/package/supertest?ref=hackernoon.com)
 
 ## Configurazione
 
 1. Clona il progetto in locale, poi esegui `npm install` per installare tutte le dipendenze necessarie.
-2. Crea un database su mysql o importa il file di migrazione.
-   - Se invece di importare il file di migrazione hai creato un nuovo db è necessario effettuare una migrazione con Prisma, eseguendo `npx prisma migrate dev --name init`, per i dettagli consultare la[guida ufficiale](https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scratch/relational-databases/using-prisma-migrate-node-mysql)
-3. Crea un file `.env` o modifica e rinomina `.env.example` inserendo la porta sulla quale vuoi avviare il server (se omessa di default è 3000)
-4. Completa la stringa con l'url del database inserendo nome utente, password, host, porta e nome del db (per maggiori info sulle db string di Prisma visitare [la documentazione](https://pris.ly/d/connection-strings)).
+2. Crea un file `.env` o modifica e rinomina `.env.example` inserendo la porta sulla quale vuoi avviare il server (se omessa di default è 3000)
+3. Crea un nuovo db su mysql e completa la stringa con l'url del database inserendo nome utente, password, host, porta e nome del db (per maggiori info sulle db string di Prisma visitare [la documentazione](https://pris.ly/d/connection-strings)).
+4. Esegui `npm run migrate` o, in alternativa, importa direttamente il file di migrazione che si trova in ./prisma/migrations. Per i dettagli sulle migrazioni consultare la [guida ufficiale](https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scratch/relational-databases/using-prisma-migrate-node-mysql)
 5. Eseguire `npm run dev` per avviare l'ambiente di sviluppo o `npm start` per compilare il progetto e testare l'ambiente di produzione
 
 ## Script NPM
 
 Puoi eseguire questi script con `npm run`:
 
-- `test` = esegue i test con mocha,
-- `build` = compila il codice da typescript a javascript,
-- `dev` = avvia il server di sviluppo,
-- `start` = compila il codice e avvia il server di produzione,
-- `migrate` = effettua una migrazione sul database
+- `test` = esegue gli unit test con Jest
+- `build` = compila il codice da TypeScript a JavaScript
+- `dev` = avvia il server di sviluppo
+- `start` = compila il codice e avvia il server di produzione
+- `migrate` = effettua una migrazione sul database (gli altri comandi di Prisma sono sulla documentazione)
 
 ## Come utilizzare le REST API
 

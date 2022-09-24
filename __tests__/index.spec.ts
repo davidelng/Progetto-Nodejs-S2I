@@ -1,7 +1,7 @@
 import express from "express";
 import request from "supertest";
 
-describe("REST API Server", () => {
+describe("Testing: SERVER", () => {
 
   const app = express();
 
