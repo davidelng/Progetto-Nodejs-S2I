@@ -8,7 +8,7 @@
     "build": "npx tsc",
     "dev": "npx ts-node ./src/index.ts",
     "start": "npx tsc && node ./dist/index.js",
-    "migrate": "npx prisma migrate dev --name init"
+    "migrate": "npx prisma migrate dev"
   },
   "author": "Davide Longo",
   "license": "ISC",

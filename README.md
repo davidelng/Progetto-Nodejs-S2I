@@ -6,9 +6,9 @@ Il progetto prevede la creazione di REST API utilizzando Node, nel caso specific
 
 Ho utilizzato Express per gestire i routing, le chiamate e ho sfruttato i middleware per controllare il contenuto delle chiamate.
 
-In ultimo, nonostante abbia scelto MySQL come database, ho preferito l'utilizzo di un ORM come Prisma per interagire con lo stesso. Prisma si è occupato di creare i modelli e associati tipi per il database.
+In ultimo, nonostante abbia scelto MySQL come database, ho preferito utilizzare un ORM come Sequelize o Prisma. Ho scelto quest'ultimo, che si è occupato di creare modelli, tipi e migrazioni per il database.
 
-Ho eseguito degli unit test capillari facendo un mock del database con Jest e Supertest.
+Ho eseguito degli unit test capillari facendo un mock del database, inizialmente attraverso Mocha/Chai/Sinon, preferendo poi la combinazione Jest/Supertest per via della migliore integrazione con Prisma.
 
 ### Cosa ho usato in sintesi
 
@@ -16,6 +16,7 @@ Ho eseguito degli unit test capillari facendo un mock del database con Jest e Su
 - [Express.js](https://expressjs.com/it/)
 - [MySQL](https://www.mysql.com/it/)
 - [Prisma](https://www.prisma.io/)
+- [Dotenv](https://www.npmjs.com/package/dotenv)
 - [TypeScript](https://www.typescriptlang.org/)
 - [ESLint](https://eslint.org/)
 - [Jest](https://jestjs.io/)
