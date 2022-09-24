@@ -12,7 +12,7 @@ CREATE TABLE `Post` (
 CREATE TABLE `User` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `nickname` VARCHAR(191) NOT NULL,
-    `age` VARCHAR(191) NOT NULL,
+    `age` INTEGER NOT NULL,
     `city` VARCHAR(191) NOT NULL,
 
     UNIQUE INDEX `User_nickname_key`(`nickname`),
