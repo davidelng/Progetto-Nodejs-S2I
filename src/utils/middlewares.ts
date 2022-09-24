@@ -50,7 +50,8 @@ const isDateCorrect = (req: Request, res: Response, next: NextFunction) => {
  * Controlla se il tipo di interazione è "like" o "commento"
  */
 const isAvailableInteraction = (req: Request, res: Response, next: NextFunction) => { 
-  const { type } = req.body;
+  let { type } = req.body;
+  type = type.toLowerCase();
   if ( type !== "like" && type !== "commento") {
     res.status(400).send({ error: "Non un'interazione di tipo valido, deve essere 'like' o 'commento'" });
   } else {

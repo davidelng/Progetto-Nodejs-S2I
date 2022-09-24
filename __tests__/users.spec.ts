@@ -9,7 +9,7 @@ describe("Testing: USERS", () => {
   app.use(express.json());
   app.use("/users", usersRouter);
 
-  describe("GET /users", () => {
+  describe("GET", () => {
 
     test("Should get a list of all users", async () => {
       const fakeUsers = [
@@ -39,7 +39,7 @@ describe("Testing: USERS", () => {
     });
   });
 
-  describe("POST /users", () => {
+  describe("POST", () => {
     test("Should register a user", async () => {
       const fakeUser = {id: 1, nickname: "Jest", age: 21, city: "Node"};
       prismaMock.user.create.mockResolvedValue(fakeUser);
@@ -59,7 +59,7 @@ describe("Testing: USERS", () => {
     });
   });
 
-  describe("PUT /users", () => {
+  describe("PUT", () => {
     test("Should update a user", async () => {
       const fakeUser = {id: 1, nickname: "Supertest", age: 21, city: "Node"};
       prismaMock.user.update.mockResolvedValue(fakeUser);
@@ -90,7 +90,7 @@ describe("Testing: USERS", () => {
     });
   });
 
-  describe("DELETE /users", () => {
+  describe("DELETE", () => {
     test("Should delete a user", async () => {
       const fakeUser = {id: 1, nickname: "Supertest", age: 21, city: "Node"};
       prismaMock.user.delete.mockResolvedValue(fakeUser);
