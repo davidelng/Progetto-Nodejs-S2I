@@ -26,7 +26,7 @@ Ho eseguito degli unit test capillari facendo un mock del database, inizialmente
 
 1. Clona il progetto in locale, poi esegui `npm install` per installare tutte le dipendenze necessarie.
 2. Crea un file `.env` o modifica e rinomina `.env.example` inserendo la porta sulla quale vuoi avviare il server (se omessa di default è 3000)
-3. Crea un nuovo db su mysql e completa la stringa con l'url del database inserendo nome utente, password, host, porta e nome del db (per maggiori info sulle db string di Prisma visitare [la documentazione](https://pris.ly/d/connection-strings)).
+3. Crea un nuovo db mysql e completa la stringa precedente con l'url del database inserendo nome utente, password, host, porta e nome del db (per maggiori info sulle db string di Prisma visitare [la documentazione](https://pris.ly/d/connection-strings))
 4. Esegui `npm run migrate` o, in alternativa, importa direttamente il file di migrazione che si trova in ./prisma/migrations. Per i dettagli sulle migrazioni consultare la [guida ufficiale](https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scratch/relational-databases/using-prisma-migrate-node-mysql)
 5. Eseguire `npm run dev` per avviare l'ambiente di sviluppo o `npm start` per compilare il progetto e testare l'ambiente di produzione
 
@@ -34,82 +34,81 @@ Ho eseguito degli unit test capillari facendo un mock del database, inizialmente
 
 Puoi eseguire questi script con `npm run`:
 
-- `test` = esegue gli unit test con Jest
-- `build` = compila il codice da TypeScript a JavaScript
-- `dev` = avvia il server di sviluppo
-- `start` = compila il codice e avvia il server di produzione
-- `migrate` = effettua una migrazione sul database (gli altri comandi di Prisma sono sulla documentazione)
+- `test`: esegue gli unit test con Jest
+- `build`: compila il codice da TypeScript a JavaScript
+- `dev`: avvia il server di sviluppo
+- `start`: compila il codice e avvia il server di produzione
+- `migrate`: effettua una migrazione sul database
 
 ## Come utilizzare le REST API
 
 Attraverso gli endpoint abbiamo la possibilità di leggere, inserire, cancellare e filtrare record come utenti, post e interazioni.
 
-### Utenti = `/users`
+### `GET`
 
-- `GET /` = ritorna tutti gli utenti
-- `GET /{id}` = ritorna l'utente corrispondente all'id specificato
-- `POST /` = registra un utente inserendo nel body
+- `/users`: ritorna tutti gli utenti
+- `/users/{userId}`: ritorna l'utente corrispondente all'id specificato
+- `/posts/?date={YYYY-MM-DD}`: ritorna tutti i post (se specificato, solo quelli inseriti dopo la data specificata)
+- `/posts/{postId}?date={YYYY-MM-DD}&city={city}`: ritorna il post associato all'id, se specificato aggrega le interazioni filtrate per data e luogo
 
-```json
-{
-  "nickname": "start2impact",
-  "age": 25,
-  "city": "Roma"
-}
-```
+### `POST`
 
-- `PUT /{id}` = aggiorna le informazioni dell'utente con l'id specificato, non è necessario specificare tutti i parametri
+- `/users`: registra un utente
+  - Body:
+    ```json
+    {
+      "nickname": "String",
+      "age": "Int",
+      "city": "string"
+    }
+    ```
+- `/posts`: permette di creare un nuovo post inserendo il titolo
+  - Body:
+    ```json
+    {
+      "title": "Titolo"
+    }
+    ```
+- `/interactions/{postId}`: permette di inserire un'interazione specificando l'id del post e il tipo di interazione (like o commento)
+  - Body:
+    ```json
+    {
+      "type": "like",
+      "userId": 1
+    }
+    ```
 
-```json
-{
-  "nickname": "start2impact", // non obbligatorio
-  "age": 25, // non obbligatorio
-  "city": "Roma" // non obbligatorio
-}
-```
+### `PUT`
 
-- `DELETE /{id}` = cancella l'utente con l'id specificato
+- `/users/{userId}`: aggiorna le informazioni dell'utente con l'id specificato, non è necessario aggiornare tutti i parametri
 
-### Post e filtri = `/posts`
+  - Body:
+    ```json
+    {
+      "nickname": "start2impact",
+      "age": 25,
+      "city": "Roma"
+    ```
 
-- `GET /?date=YYYY-MM-DD` = ritorna tutti i post (se specificato, solo quelli inseriti prima della data specificata)
-- `GET /{id}?date=YYYY-MM-DD&city=Roma` = ritorna il post associato all'id, se specificato aggrega le interazioni filtrate per data e luogo
-- `POST /` = permette di creare un nuovo post, specificando nel body
+- `/posts/{postId}`: modifica il titolo del post con l'id specificato
 
-```json
-{
-  "title": "Titolo"
-}
-```
+  - Body:
+    ```json
+    {
+      "title": "Nuovo titolo"
+    }
+    ```
 
-- `PUT /{id}` = modifica il post con l'id specificato, inserendo nel body
+- `/interactions/{interactionId}`: modifica il tipo dell'interazione specificata con l'id
+  - Body:
+    ```json
+    {
+      "type": "like"
+    }
+    ```
 
-```json
-{
-  "title": "Nuovo titolo"
-}
-```
+### `DELETE`
 
-- `DELETE /{id}` = cancella il post corrispondente all'id specificato
-
-### Interazioni = `/interactions`
-
-- `GET /` = disabilitata, ritorna tutte le interazioni
-- `POST /{postId}` = permette di inserire un'interazione sul post associato all'id inserito nei parametri, nel body va inserito
-
-```json
-{
-  "type": "like", // o "commento"
-  "userId": 1
-}
-```
-
-- `PUT /{interactionId}` = modifica il tipo dell'interazione specificata con l'id, inserendo nel body
-
-```json
-{
-  "type": "like" // o "commento"
-}
-```
-
-- `DELETE /{interactionId}` = cancella l'interazione associata all'id specificato
+- `/users/{userId}`: cancella l'utente con l'id specificato
+- `/posts/{postId}`: cancella il post corrispondente all'id specificato
+- `/interactions/{interactionId}`: cancella l'interazione associata all'id specificato

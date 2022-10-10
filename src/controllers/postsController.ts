@@ -6,11 +6,12 @@ import type { Request, Response } from "express";
  * READ
  */
 const getPosts = async (req: Request, res: Response) => {
-  // parametro query per filtare i post in base alla data di creazione
-  const date = req.query.date !== undefined ? req.query.date as string : Date.now();
+  const date = req.query.date as string;
 
   const posts = await prisma.post.findMany({
-    where: { createdAt: { lte: new Date(date) } },
+    where: {
+      createdAt: { gte: date !== undefined ? new Date(date) : undefined }
+    },
     select: {
       id: true,
       createdAt: true,
@@ -33,13 +34,12 @@ const getPosts = async (req: Request, res: Response) => {
 };
 
 const getPostById = async (req: Request, res: Response) => { 
-  const { id } = req.params;
-  // parametri query per filtrare le interazioni del post per città e data
-  const date = req.query.date !== undefined ? req.query.date as string : Date.now();
-  const city = req.query.city !== undefined ? req.query.city as string : undefined;
+  const { postId } = req.params;
+  const date = req.query.date as string;
+  const city = req.query.city as string;
 
   const post = await prisma.post.findUnique({
-    where: { id: parseInt(id) },
+    where: { id: parseInt(postId) },
     select: {
       id: true,
       createdAt: true,
@@ -52,8 +52,8 @@ const getPostById = async (req: Request, res: Response) => {
           user: { select: { nickname: true } }
         },
         where: { 
-          createdAt: { lte: new Date(date) }, 
-          user: { city: city } 
+          createdAt: { gte: date !== undefined ? new Date(date) : undefined },
+          user: { city: city !== undefined ? city : undefined } 
         }
       }
     }
@@ -87,12 +87,12 @@ const createPost = async (req: Request, res: Response) => {
  * UPDATE
  */
 const updatePost = async (req: Request, res: Response) => {
-  const { id } = req.params;
+  const { postId } = req.params;
   const { title } = req.body;
 
   try {
     const updatedPost = await prisma.post.update({
-      where: { id: Number(id) },
+      where: { id: Number(postId) },
       data: { title: title }
     });
     res
@@ -107,12 +107,12 @@ const updatePost = async (req: Request, res: Response) => {
  * DELETE
  */
 const deletePost = async (req: Request, res: Response) => {
-  const { id } = req.params;
+  const { postId } = req.params;
 
   try {
     const post = await prisma.post.delete({
       where: {
-        id: Number(id)
+        id: Number(postId)
       }
     });
     res

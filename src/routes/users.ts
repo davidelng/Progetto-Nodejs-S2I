@@ -7,16 +7,16 @@ const router = express.Router();
 
 // GET
 router.get("/", getUsers);
-router.get("/:id", getUserById);
+router.get("/:userId", getUserById);
 
 // POST
 router.post("/", requireJsonContent, createUser);
 
 // PUT
-router.put("/:id", requireJsonContent, updateUser);
+router.put("/:userId", requireJsonContent, updateUser);
 
 // DELETE
-router.delete("/:id", deleteUser);
+router.delete("/:userId", deleteUser);
 
 // Export
 export { router as usersRouter };

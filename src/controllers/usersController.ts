@@ -16,9 +16,9 @@ const getUsers = async (req: Request, res: Response) => {
 };
 
 const getUserById = async (req: Request, res: Response) => { 
-  const { id } = req.params;
+  const { userId } = req.params;
   const user = await prisma.user.findUnique({
-    where: { id: Number(id) }
+    where: { id: Number(userId) }
   });
   if (user) {
     res.status(200).json(user);
@@ -45,7 +45,7 @@ const createUser = async (req: Request, res: Response) => {
     if ( error.code === "P2002") {
       error.message = "Nickname già in uso";
     } else {
-      error.message = "Impossibile creare l'utente";
+      error.message = "Impossibile creare l'utente, inserisci i dati corretti";
     }
     res.status(400).json({ error: error.message });
   }
@@ -55,12 +55,12 @@ const createUser = async (req: Request, res: Response) => {
  * UPDATE
  */
 const updateUser = async (req: Request, res: Response) => {
-  const { id } = req.params;
+  const { userId } = req.params;
   const { nickname, age, city } = req.body;
   
   try {
     const updatedUser = await prisma.user.update({
-      where: { id: Number(id) },
+      where: { id: Number(userId) },
       data: { 
         nickname: nickname, 
         age: age, 
@@ -75,7 +75,7 @@ const updateUser = async (req: Request, res: Response) => {
   } catch (e: unknown) {
     const error = e as DbError;
     if ( error.code === "P2025") {
-      error.message = `Nessun utente con id ${id}`;
+      error.message = `Nessun utente con id ${userId}`;
     } else {
       error.message = "Impossibile aggiornare l'utente";
     }
@@ -87,12 +87,12 @@ const updateUser = async (req: Request, res: Response) => {
  * DELETE
  */
 const deleteUser = async (req: Request, res: Response) => {
-  const { id } = req.params;
+  const { userId } = req.params;
   
   try {
     const user = await prisma.user.delete({
       where: {
-        id: Number(id),
+        id: Number(userId),
       }
     });
     res
