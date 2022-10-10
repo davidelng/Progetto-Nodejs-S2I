@@ -48,7 +48,7 @@ Attraverso gli endpoint abbiamo la possibilità di leggere, inserire, cancellare
 
 - `/users`: ritorna tutti gli utenti
 - `/users/{userId}`: ritorna l'utente corrispondente all'id specificato
-- `/posts/?date={YYYY-MM-DD}`: ritorna tutti i post (se specificato, solo quelli inseriti dopo la data specificata)
+- `/posts?date={YYYY-MM-DD}`: ritorna tutti i post (se specificato, solo quelli inseriti dopo la data specificata)
 - `/posts/{postId}?date={YYYY-MM-DD}&city={city}`: ritorna il post associato all'id, se specificato aggrega le interazioni filtrate per data e luogo
 
 ### `POST`
