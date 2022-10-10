@@ -1,4 +1,4 @@
-# Progetto Node.js per Start2Impact
+# Progetto REST API con Node.js
 
 ## Descrizione
 
@@ -85,7 +85,7 @@ Attraverso gli endpoint abbiamo la possibilità di leggere, inserire, cancellare
   - Body:
     ```json
     {
-      "nickname": "start2impact",
+      "nickname": "johndoe",
       "age": 25,
       "city": "Roma"
     ```
